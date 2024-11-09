@@ -13,7 +13,8 @@ And once clicked shows a modal with the text of the message in the Markdown form
 
 ## Supported content
 
-- Currently only supports 3 layers of nesting ordered lists with a length of 8 items per layer.
+- Currently only supports 3 layers of nested unordered lists.
+- Currently only supports 3 layers of nested ordered lists with a length of 8 items per layer.
 
 ## Development getting Started
 
