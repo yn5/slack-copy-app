@@ -36,7 +36,7 @@ export async function POST(request: Request) {
         callback_id: "copy-app-modal",
         title: {
           type: "plain_text",
-          text: "Plain text",
+          text: "Message text",
         },
         submit: {
           type: "plain_text",
