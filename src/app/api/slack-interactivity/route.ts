@@ -11,8 +11,15 @@ export async function POST(request: Request) {
 
   const urlParams = new URLSearchParams(body);
   const payload = JSON.parse(urlParams.get("payload") || "");
-  const { message, trigger_id } = payload;
-  console.log(JSON.stringify(message.text));
+  const { message, trigger_id, type } = payload;
+
+  if (type === "view_submission") {
+    return Response.json({});
+  }
+
+  if (type !== "message_action") {
+    return Response.json({});
+  }
 
   const parsedSlackMessage = parseSlackMessage(message.text);
 
@@ -31,21 +38,38 @@ export async function POST(request: Request) {
           type: "plain_text",
           text: "Plain text",
         },
+        submit: {
+          type: "plain_text",
+          text: "Done",
+        },
         blocks: [
           {
             type: "rich_text",
             elements: [
               {
-                type: "rich_text_preformatted",
+                type: "rich_text_section",
                 elements: [
                   {
                     type: "text",
-                    text: parsedSlackMessage,
+                    text: "Press CMD+A and CMD+C to copy message text to clipboard",
                   },
                 ],
-                border: 0,
               },
             ],
+          },
+          {
+            type: "input",
+            block_id: "message_text_input_block",
+            element: {
+              type: "plain_text_input",
+              action_id: "message_text_input",
+              initial_value: parsedSlackMessage,
+              multiline: true,
+            },
+            label: {
+              type: "plain_text",
+              text: "Message text",
+            },
           },
         ],
       },
