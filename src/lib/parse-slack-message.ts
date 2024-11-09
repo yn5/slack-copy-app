@@ -1,9 +1,16 @@
 export function parseSlackMessage(slackMessage: string) {
-  const parsedSlackMessage = parseStrikethrough(
-    parseBoldText(parseLists(slackMessage)),
+  const parsedSlackMessage = parseLinks(
+    parseStrikethrough(parseBoldText(parseLists(slackMessage))),
   );
 
   return parsedSlackMessage;
+}
+
+function parseLinks(slackMessage: string) {
+  const regex = /<([^|]+)\|([^>]+)>/g;
+
+  const parsedLinks = slackMessage.replaceAll(regex, "[$2]($1)");
+  return parsedLinks;
 }
 
 function parseStrikethrough(slackMessage: string) {

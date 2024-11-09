@@ -60,7 +60,7 @@ _Here follows an ordered list_
 > A quote
 ~~Some strikethrough text.~~
 
-<https://www.google.com|And a link>
+[And a link](https://www.google.com)
 `;
 
 test("parseSlackMessage", () => {
