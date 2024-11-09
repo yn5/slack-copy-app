@@ -1,3 +1,5 @@
+import { parseSlackMessage } from "@/lib/parse-slack-message";
+
 if (!process.env.SLACK_APP_ACCESS_TOKEN) {
   throw new Error("Missing SLACK_APP_ACCESS_TOKEN");
 }
@@ -10,6 +12,9 @@ export async function POST(request: Request) {
   const urlParams = new URLSearchParams(body);
   const payload = JSON.parse(urlParams.get("payload") || "");
   const { message, trigger_id } = payload;
+  console.log(JSON.stringify(message.text));
+
+  const parsedSlackMessage = parseSlackMessage(message.text);
 
   await fetch("https://slack.com/api/views.open", {
     method: "POST",
@@ -35,7 +40,7 @@ export async function POST(request: Request) {
                 elements: [
                   {
                     type: "text",
-                    text: message.text,
+                    text: parsedSlackMessage,
                   },
                 ],
                 border: 0,
