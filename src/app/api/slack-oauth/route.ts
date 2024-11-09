@@ -45,7 +45,7 @@ export async function GET(request: Request) {
     } = await response.json();
 
     if (data.ok) {
-      return Response.redirect("/slack-oauth-success");
+      return Response.redirect(new URL("/slack-oauth-success", request.url));
     } else {
       return Response.json(
         { error: data.error ?? "Unknown error" },
