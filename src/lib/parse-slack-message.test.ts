@@ -33,7 +33,7 @@ _Here follows an ordered list_
 `;
 
 const parsedSlackMessage = `
-*Test some copy that is formatted*
+**Test some copy that is formatted**
 - First item of an unordered list
     - First nested item of first item
     - Second nested item of first item

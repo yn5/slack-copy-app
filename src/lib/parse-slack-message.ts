@@ -1,5 +1,17 @@
 export function parseSlackMessage(slackMessage: string) {
-  const parsedSlackMessage = slackMessage
+  const parsedSlackMessage = parseBoldText(parseLists(slackMessage));
+
+  return parsedSlackMessage;
+}
+
+function parseBoldText(slackMessage: string) {
+  const parsedBoldText = slackMessage.replaceAll(/\*(.*?)\*/g, "**$1**");
+
+  return parsedBoldText;
+}
+
+function parseLists(slackMessage: string) {
+  const parsedLists = slackMessage
     .replaceAll("•", "-")
     .replaceAll("◦", "-")
     .replaceAll("▪︎", "-")
@@ -28,5 +40,5 @@ export function parseSlackMessage(slackMessage: string) {
     .replaceAll("            g. ", "            7. ")
     .replaceAll("            h. ", "            8. ");
 
-  return parsedSlackMessage;
+  return parsedLists;
 }
