@@ -1,44 +1,49 @@
 export function parseSlackMessage(slackMessage: string) {
-  const parsedSlackMessage = parseLinks(
-    parseStrikethrough(parseBoldText(parseLists(slackMessage))),
-  );
+  const parsedSlackMessage = new SlackMessageParser(slackMessage)
+    .parseLists()
+    .parseBoldText()
+    .parseStrikethrough()
+    .parseLinks()
+    .getMessage();
 
   return parsedSlackMessage;
 }
+class SlackMessageParser {
+  private message: string;
 
-function parseLinks(slackMessage: string) {
-  const regex = /<([^|]+)\|([^>]+)>/g;
+  constructor(message: string) {
+    this.message = message;
+  }
 
-  const parsedLinks = slackMessage.replaceAll(regex, "[$2]($1)");
-  return parsedLinks;
-}
+  parseLinks(): SlackMessageParser {
+    const regex = /<([^|]+)\|([^>]+)>/g;
+    this.message = this.message.replaceAll(regex, "[$2]($1)");
+    return this;
+  }
 
-function parseStrikethrough(slackMessage: string) {
-  const parsedBoldText = slackMessage.replaceAll(/\~(.*?)\~/g, "~~$1~~");
+  parseStrikethrough(): SlackMessageParser {
+    this.message = this.message.replaceAll(/\~(.*?)\~/g, "~~$1~~");
+    return this;
+  }
 
-  return parsedBoldText;
-}
+  parseBoldText(): SlackMessageParser {
+    this.message = this.message.replaceAll(/\*(.*?)\*/g, "**$1**");
+    return this;
+  }
 
-function parseBoldText(slackMessage: string) {
-  const parsedBoldText = slackMessage.replaceAll(/\*(.*?)\*/g, "**$1**");
+  parseLists(): SlackMessageParser {
+    const symbolsToReplace = ["\u2022", "\u25E6", "\u25AA\uFE0E"];
+    const alphabeticItems = ["a", "b", "c", "d", "e", "f", "g", "h"];
+    const romanNumerals = ["i", "ii", "iii", "iv", "v", "vi", "vii", "viii"];
 
-  return parsedBoldText;
-}
+    // Replace list symbols
+    this.message = symbolsToReplace.reduce(
+      (message, symbol) => message.replaceAll(symbol, "-"),
+      this.message,
+    );
 
-function parseLists(slackMessage: string) {
-  const symbolsToReplace = ["•", "◦", "▪︎"];
-  const alphabeticItems = ["a", "b", "c", "d", "e", "f", "g", "h"];
-  const romanNumerals = ["i", "ii", "iii", "iv", "v", "vi", "vii", "viii"];
-
-  // Replace list symbols
-  const replacedSymbols = symbolsToReplace.reduce(
-    (message, symbol) => message.replaceAll(symbol, "-"),
-    slackMessage,
-  );
-
-  // Replace alphabetic items
-  const replacedAlphabetic = alphabeticItems.reduce(
-    (message, letter, index) => {
+    // Replace alphabetic items
+    this.message = alphabeticItems.reduce((message, letter, index) => {
       const replacementNumber = (index + 1).toString();
       return message
         .replaceAll(`    ${letter}. `, `    ${replacementNumber}. `)
@@ -46,21 +51,21 @@ function parseLists(slackMessage: string) {
           `            ${letter}. `,
           `            ${replacementNumber}. `,
         );
-    },
-    replacedSymbols,
-  );
+    }, this.message);
 
-  // Replace roman numerals
-  const replacedRomanNumerals = romanNumerals.reduce(
-    (message, numeral, index) => {
+    // Replace roman numerals
+    this.message = romanNumerals.reduce((message, numeral, index) => {
       const replacementNumber = (index + 1).toString();
       return message.replaceAll(
         `        ${numeral}. `,
         `        ${replacementNumber}. `,
       );
-    },
-    replacedAlphabetic,
-  );
+    }, this.message);
 
-  return replacedRomanNumerals;
+    return this;
+  }
+
+  getMessage(): string {
+    return this.message;
+  }
 }
