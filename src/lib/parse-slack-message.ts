@@ -1,7 +1,15 @@
 export function parseSlackMessage(slackMessage: string) {
-  const parsedSlackMessage = parseBoldText(parseLists(slackMessage));
+  const parsedSlackMessage = parseStrikeThrough(
+    parseBoldText(parseLists(slackMessage)),
+  );
 
   return parsedSlackMessage;
+}
+
+function parseStrikeThrough(slackMessage: string) {
+  const parsedBoldText = slackMessage.replaceAll(/\~(.*?)\~/g, "~~$1~~");
+
+  return parsedBoldText;
 }
 
 function parseBoldText(slackMessage: string) {

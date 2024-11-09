@@ -58,7 +58,7 @@ _Here follows an ordered list_
             3. Third nested item of third nested of first nested item of second item
 3. Third item of an ordered list
 > A quote
-~Some strikethrough text.~
+~~Some strikethrough text.~~
 
 <https://www.google.com|And a link>
 `;
