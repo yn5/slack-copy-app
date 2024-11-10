@@ -3,20 +3,24 @@
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-Currently (November 2024), whenever you copy a Slack message the result is unformatted plain text. This leeds me to spending quite some time reformatting the copied text if I need it somehwere out of slack.
+Currently (November 2024), when you copy a Slack message, the text on your clipboard is unformatted (or incorrectly formatted). This leads me to spending quite some time reformatting the copied text on a weekly basis.
 
-That's what this app is for. It adds an item to the context menu of a Slack message:
+To address this, I created [this app](https://slack.com/marketplace/A080KJS0VJM-copy), and this repository contains the source code for its supporting web application.
+
+The app adds an option to the context menu of a Slack message:
+
 ![Shortcut screenshot](./readme-images/slack-copy-app-shortcut-screenshot.png)
 
-And once clicked shows a modal with the text of the message in the Markdown format used for Obsidian (currently):
+When clicked, it opens a modal with the message text in Markdown format, optimized for Obsidian (currently):
+
 ![Shortcut screenshot](./readme-images/slack-copy-app-result-screenshot.png)
 
-## Supported content
+## Supported Content
 
-- Currently only supports 3 layers of nested unordered lists.
-- Currently only supports 3 layers of nested ordered lists with a length of 8 items per layer.
+- Currently supports up to 3 layers of nested unordered lists.
+- Currently supports up to 3 layers of nested ordered lists, with a maximum of 8 items per layer.
 
-## Development getting Started
+## Development Getting Started
 
 First, run the development server:
 
