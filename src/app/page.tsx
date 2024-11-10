@@ -1,3 +1,4 @@
+import GithubLink from "@/components/github-link";
 import Logo from "@/components/logo";
 import Image from "next/image";
 import React from "react";
@@ -15,6 +16,7 @@ export default function Home() {
           src="https://platform.slack-edge.com/img/add_to_slack@2x.png"
         />
       </a>
+      <GithubLink className="absolute bottom-16" />
     </div>
   );
 }

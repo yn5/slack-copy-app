@@ -1,3 +1,4 @@
+import GithubLink from "@/components/github-link";
 import Logo from "@/components/logo";
 import React from "react";
 
@@ -7,6 +8,7 @@ export default function SlackOauthSuccessPage() {
       <Logo />
       <h1 className="mb-4 text-2xl">Slack integration Successful!</h1>
       <p>The Slack Copy App has been installed to your Slack workspace.</p>
+      <GithubLink className="absolute bottom-16" />
     </div>
   );
 }
