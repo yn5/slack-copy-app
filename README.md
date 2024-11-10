@@ -1,6 +1,8 @@
 
 # Slack Copy App
 
+[![Tests](https://github.com/yn5/slack-copy-app/actions/workflows/tests.yaml/badge.svg)](https://github.com/yn5/slack-copy-app/actions/workflows/tests.yaml)
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 Currently (November 2024), when you copy a Slack message, the text on your clipboard is unformatted (or incorrectly formatted). This leads me to spending quite some time reformatting the copied text on a weekly basis.
