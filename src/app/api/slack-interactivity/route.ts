@@ -10,6 +10,7 @@ export async function POST(request: Request) {
   const body = await request.text();
 
   const urlParams = new URLSearchParams(body);
+  console.log(urlParams);
   const payload = JSON.parse(urlParams.get("payload") || "");
   const { message, trigger_id, type } = payload;
 
@@ -23,7 +24,7 @@ export async function POST(request: Request) {
 
   const parsedSlackMessage = parseSlackMessage(message.text);
 
-  await fetch("https://slack.com/api/views.open", {
+  const response = await fetch("https://slack.com/api/views.open", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -76,5 +77,6 @@ export async function POST(request: Request) {
     }),
   });
 
+  console.log(await response.text());
   return Response.json({});
 }
