@@ -53,7 +53,10 @@ export async function GET(request: Request) {
       );
     }
   } catch (error) {
-    console.error("OAuth error:", error);
+    if (process.env.NODE_ENV !== "test") {
+      console.error("OAuth error:", error);
+    }
+
     return Response.json(
       { error: "Something went wrong during the OAuth process." },
       { status: 500 },
