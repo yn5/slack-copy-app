@@ -8,7 +8,7 @@ process.env.SLACK_REDIRECT_URI = "https://yourapp.com/slack/oauth";
 // set before it is imported.
 const { GET } = await import("./route");
 
-describe("GET /oauth", () => {
+describe("GET /api/slack-oauth", () => {
   beforeEach(() => {
     globalThis.fetch = vi.fn();
   });
