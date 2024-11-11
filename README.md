@@ -1,6 +1,8 @@
 
 # Slack Copy App
 
+<a href="https://slack.com/oauth/v2/authorize?client_id=1567601987477.8019638029633&scope=commands&user_scope="><img alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack@2x.png"/></a>
+
 [![Tests](https://github.com/yn5/slack-copy-app/actions/workflows/tests.yaml/badge.svg)](https://github.com/yn5/slack-copy-app/actions/workflows/tests.yaml)
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
